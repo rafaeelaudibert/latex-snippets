@@ -1,4 +1,11 @@
+# Node modules
 node_modules/
+
+# Local Next folder
 .next/
+
 # Local Netlify folder
 .netlify
+
+# Your envinronment variables file. NEVER COMMIT IT
+.env
