@@ -1,0 +1,37 @@
+{
+  "name": "latex-snippets",
+  "version": "0.0.1",
+  "description": "Website to host a project where you can store your custom latex formulas snippets",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaeelaudibert/latex-snippets.git"
+  },
+  "keywords": [
+    "latex",
+    "react",
+    "next",
+    "netlify",
+    "graphql"
+  ],
+  "author": "Rafael B. Audibert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaeelaudibert/latex-snippets/issues"
+  },
+  "homepage": "https://github.com/rafaeelaudibert/latex-snippets#readme",
+  "dependencies": {
+    "grommet": "^2.12.0",
+    "next": "^9.3.4",
+    "polished": "^3.5.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-rainbow-components": "^1.14.1",
+    "styled-components": "^5.1.0"
+  }
+}
