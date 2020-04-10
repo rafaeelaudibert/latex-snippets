@@ -6,10 +6,10 @@
   "scripts": {
     "start": "npm-run-all --parallel start:app start:functions",
     "start:app": "next",
-    "start:functions": "netlify-lambda serve functions",
+    "start:functions": "netlify-lambda serve lambdas/functions",
     "build": "npm-run-all --parallel build:**",
     "build:app": "next build",
-    "build:functions": "netlify-lambda build functions",
+    "build:functions": "netlify-lambda build lambdas/functions",
     "export:app": "next export",
     "deploy:app": "npm run build:app && npm run export:app"
   },

@@ -7,5 +7,8 @@ node_modules/
 # Local Netlify folder
 .netlify
 
+# Ignore output functions package
+/lambdas/functions_out/ 
+
 # Your envinronment variables file. NEVER COMMIT IT
 .env
