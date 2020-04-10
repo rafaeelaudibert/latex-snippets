@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Button, Collapsible, Heading, Grommet, Layer, ResponsiveContext } from 'grommet'
 import { FormClose, Notification } from 'grommet-icons'
+import netlifyIdentity from 'netlify-identity-widget'
+
 
 const theme = {
   global: {
@@ -32,6 +34,11 @@ const AppBar = ( props ) => (
 export default () => {
   const [ showSidebar, setShowSidebar ] = useState( false )
 
+  // Initialize netlifyIdentity in a use effect,
+  // as it refers to `document` and it would break
+  // SSR compilation
+  useEffect( () => netlifyIdentity.init(), [] )
+
   return (
     <Grommet theme={theme} full themeMode="dark">
       <ResponsiveContext.Consumer>
@@ -58,7 +65,7 @@ export default () => {
                     align='center'
                     justify='center'
                   >
-                    sidebar
+                    <Button onClick={() => netlifyIdentity.open()}/>
                   </Box>
                 </Collapsible>
               ) : (
