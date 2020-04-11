@@ -7,11 +7,11 @@ import FloatingButton from '../components/FloatingButton'
 import Sidebar from '../components/Sidebar'
 import Theme from '../theme'
 
-import useNetlifyIdentity from '../hooks/useNetlifyIdentity'
+import useLogin from '../hooks/useLogin'
 
 export default () => {
   const [ showSidebar, setShowSidebar ] = useState( false )
-  const [ user, netlifyIdentity ] = useNetlifyIdentity()
+  const [ user, loginHandler ] = useLogin()
 
   return (
     <Grommet theme={Theme} full>
@@ -20,8 +20,8 @@ export default () => {
           <Box fill>
             <AppBar
               screenSize={screenSize}
-              loginButtonAction={netlifyIdentity.open}
-              logoutButtonAction={netlifyIdentity.logout}
+              loginButtonAction={loginHandler.open}
+              logoutButtonAction={loginHandler.logout}
               user={user}
             />
             <Box direction='row' flex overflow={{ horizontal: 'hidden' }}>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import netlifyIdentity from 'netlify-identity-widget'
 
-export default function useNetlifyIdentity() {
+export default function useLogin() {
   const [ user, setUser ] = useState()
 
   // Initialize netlifyIdentity in a use effect,
@@ -12,7 +12,7 @@ export default function useNetlifyIdentity() {
     netlifyIdentity.on( 'login', setUser )
     netlifyIdentity.on( 'logout', setUser )
 
-    // Get the already set user
+    // Get the (maybe) already set user
     setUser( netlifyIdentity.currentUser() )
   }, [] )
 
