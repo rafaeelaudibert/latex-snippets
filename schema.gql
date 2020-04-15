@@ -2,26 +2,16 @@ type Snippet @collection(name: "snippets") {
   name: String!
   content: String!
   public: Boolean!
-  url: String!
   user: User!
 }
 
 type User @collection(name: "users") {
   name: String!
-  email: String!
-  idNetlifyIdentity: String!
+  email: String! @unique
+  idNetlifyIdentity: String! @unique
+  snippets: [Snippet] @relation
 }
-
-# input SubmitOrderProductInput {
-#   productId: ID!
-#   quantity: Int!
-# }
 
 type Query {
-  allSnippets: [Snippet!]! @index(name: "all_snippets")
-  allUsers: [User!]! @index(name: "all_users")
+  findUserByIdNetlifyIdentity(idNetlifyIdentity: String!): User
 }
-
-# type Mutation {
-#   submitOrder(customerId: ID!, products: [SubmitOrderProductInput]): Order! @resolver(name: "submit_order")
-# }
