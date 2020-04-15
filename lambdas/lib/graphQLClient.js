@@ -1,9 +1,6 @@
-const ApolloClient = require( 'apollo-boost' )
-const fetch = require( 'node-fetch' )
-const config = require( '../config' )
-
-const FAUNA_DB_SECRET = config.FAUNA_DB_SECRET
-const FAUNA_DB_URL = 'https://graphql.fauna.com/graphql'
+import ApolloClient from 'apollo-boost'
+import fetch from 'node-fetch'
+import { FAUNA_DB_SECRET, FAUNA_DB_URL } from '../config'
 
 const client = new ApolloClient( {
   uri: FAUNA_DB_URL,
@@ -18,4 +15,4 @@ const client = new ApolloClient( {
 } )
 
 
-module.exports = client
+export default client
