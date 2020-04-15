@@ -12,3 +12,4 @@ node_modules/
 
 # Your envinronment variables file. NEVER COMMIT IT
 .env
+.faunarc
