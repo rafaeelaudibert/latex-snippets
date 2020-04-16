@@ -1,8 +1,8 @@
 import { Grommet, ResponsiveContext } from 'grommet'
 
-import Theme from '../theme'
+import Theme from './theme'
 
-import ApiProvider from '../contexts/ApiContext'
+import ApiProvider from './contexts/ApiContext'
 
 export default ( { children } ) => (
   <ApiProvider>

@@ -3,11 +3,13 @@ import useLogin from '../hooks/useLogin'
 import { createSnippet, deleteSnippet, saveSnippet } from '../services/snippet.service'
 import { getOrCreateUser } from '../services/user.service'
 
-export const ApiContext = React.createContext()
+export const ApiContext = React.createContext( {} )
 
 const ApiProvider = ( { children } ) => {
   const [ providerUser, loginHandler ] = useLogin()
   const [ user, setUser ] = useState( null )
+  const [ loading, setLoading ] = useState( false )
+  const [ error, setError ] = useState()
 
   // When the provider user changes:
   //    * if we have a user, we fetch the data from the API;
@@ -17,7 +19,11 @@ const ApiProvider = ( { children } ) => {
       setUser( null )
     }
 
-    setUser( getOrCreateUser( providerUser, providerUser ) )
+    setLoading( true )
+    getOrCreateUser( providerUser, providerUser )
+      .then( setUser )
+      .then( () => setLoading( false ) )
+      .catch( setError )
   }, [ providerUser ] )
 
   return (
@@ -30,6 +36,9 @@ const ApiProvider = ( { children } ) => {
         },
         loginAction: loginHandler.open,
         logoutAction: loginHandler.logout,
+        error,
+        loading,
+        clearError: () => setError( null ),
         user
       }}
     >

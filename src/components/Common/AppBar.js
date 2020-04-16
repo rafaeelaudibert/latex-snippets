@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { Box, Button, Heading, ResponsiveContext } from 'grommet'
 import { Login, Logout } from 'grommet-icons'
 import { ApiContext } from '../../contexts/apiContext'

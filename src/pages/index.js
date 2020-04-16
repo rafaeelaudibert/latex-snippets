@@ -20,12 +20,6 @@ export default () => {
           showSidebar={showSidebar}
           closeSidebar={() => setShowSidebar( false )}
         />
-
-        {user && (
-          <FloatingButton onClick={() => setShowSidebar( !showSidebar )}>
-            {showSidebar ? <Close /> : <CaretPrevious />}
-          </FloatingButton>
-        ) }
       </Box>
     </ApplicationWrapper>
   )
