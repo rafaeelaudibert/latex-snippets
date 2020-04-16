@@ -1,9 +1,24 @@
 import Link from 'next/link'
 import { Anchor, Box, Button, Collapsible, Layer, Nav } from 'grommet'
 import { FormClose } from 'grommet-icons'
-import NavigationLinks from './descriptors/NavigationLinks'
+import { DocumentText, Home } from 'grommet-icons'
 
-const generateRoutesList = color => NavigationLinks.map( ( { href, as, icon, label } ) => {
+const NAVIGATION_LINKS = [
+  {
+    'label': 'Home',
+    'as': '/',
+    'href': 'index',
+    'icon': <Home/>
+  },
+  {
+    'label': 'Snippets',
+    'as': '/snippets',
+    'href': 'snippets',
+    'icon': <DocumentText/>
+  }
+]
+
+const generateRoutesList = color => NAVIGATION_LINKS.map( ( { href, as, icon, label } ) => {
   return (
     <Box key={as} pad='small'>
       <Link href={href} as={as}>
@@ -13,7 +28,7 @@ const generateRoutesList = color => NavigationLinks.map( ( { href, as, icon, lab
   )
 } )
 
-const sidebarMobile = ( { onClose } ) => (
+const sidebarMobile = ( { onClickClose } ) => (
   <Layer>
     <Box
       background='light-2'
@@ -25,7 +40,7 @@ const sidebarMobile = ( { onClose } ) => (
       <Button
         focusIndicator={false}
         icon={<FormClose />}
-        onClick={onClose}
+        onClick={onClickClose}
       />
     </Box>
 
