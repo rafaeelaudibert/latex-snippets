@@ -2,14 +2,14 @@ import { Grommet, ResponsiveContext } from 'grommet'
 
 import Theme from './theme'
 
-import ApiProvider from './contexts/ApiContext'
+import BackendProvider from './contexts/BackendContext'
 
 export default ( { children } ) => (
-  <ApiProvider>
+  <BackendProvider>
     <Grommet theme={Theme} full>
       <ResponsiveContext.Provider>
         {children}
       </ResponsiveContext.Provider>
     </Grommet>
-  </ApiProvider>
+  </BackendProvider>
 )

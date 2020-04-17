@@ -2,11 +2,11 @@ import { useContext } from 'react'
 import { Box, ResponsiveContext } from 'grommet'
 
 import Sidebar from '../Common/Sidebar'
-import { ApiContext } from '../../contexts/apiContext'
+import { BackendContext } from '../../contexts/BackendContext'
 
 export default ( { showSidebar, closeSidebar } ) => {
   const screenSize = useContext( ResponsiveContext )
-  const { user } = useContext( ApiContext )
+  const { user } = useContext( BackendContext )
 
   return (
     <Box direction='row' flex overflow={{ horizontal: 'hidden' }}>

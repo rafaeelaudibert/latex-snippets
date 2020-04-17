@@ -3,9 +3,9 @@ import useLogin from '../hooks/useLogin'
 import { createSnippet, deleteSnippet, saveSnippet } from '../services/snippet.service'
 import { getOrCreateUser } from '../services/user.service'
 
-export const ApiContext = React.createContext( {} )
+export const BackendContext = React.createContext( {} )
 
-const ApiProvider = ( { children } ) => {
+const BackendProvider = ( { children } ) => {
   const [ providerUser, loginHandler ] = useLogin()
   const [ user, setUser ] = useState( null )
   const [ loading, setLoading ] = useState( false )
@@ -27,7 +27,7 @@ const ApiProvider = ( { children } ) => {
   }, [ providerUser ] )
 
   return (
-    <ApiContext.Provider
+    <BackendContext.Provider
       value={{
         snippetApi: {
           createSnippet,
@@ -43,9 +43,9 @@ const ApiProvider = ( { children } ) => {
       }}
     >
       { children }
-    </ApiContext.Provider>
+    </BackendContext.Provider>
   )
 }
 
 
-export default ApiProvider
+export default BackendProvider
