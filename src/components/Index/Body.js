@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import { Box, ResponsiveContext } from 'grommet'
+import { CaretPrevious, Close } from 'grommet-icons'
 
 import Sidebar from '../Common/Sidebar'
+import FloatingButton from '../Common/FloatingButton'
 import { BackendContext } from '../../contexts/BackendContext'
 
-export default ( { showSidebar, closeSidebar } ) => {
+export default ( { showSidebar, closeSidebar, toggleSidebar } ) => {
   const screenSize = useContext( ResponsiveContext )
   const { user } = useContext( BackendContext )
 
@@ -19,7 +21,7 @@ export default ( { showSidebar, closeSidebar } ) => {
         onClickClose={closeSidebar}
       />
       {user && (
-        <FloatingButton onClick={() => setShowSidebar( !showSidebar )}>
+        <FloatingButton onClick={toggleSidebar}>
           {showSidebar ? <Close /> : <CaretPrevious />}
         </FloatingButton>
       ) }
