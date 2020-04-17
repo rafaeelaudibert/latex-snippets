@@ -1,10 +1,12 @@
 import gql from 'graphql-tag'
 import graphQLClient from '../lib/graphQLClient'
-import { OK, INTERNAL_ERROR } from '../constants/statusHttp'
+import { OK, NOT_FOUND } from '../constants/statusHttp'
+import checkIsAuthenticated from '../lib/auth'
+import { handleError, handleSuccess } from '../lib/response'
 
-const queryBuilder = ( { idNetlifyIdentity } ) => gql`
-  query {
-    findUserByIdNetlifyIdentity(idNetlifyIdentity: "${idNetlifyIdentity}") {
+const query = gql`
+  query findUser($id: String!) {
+    findUserByIdNetlifyIdentity(idNetlifyIdentity: $id) {
       _id
       name
       email
@@ -13,29 +15,25 @@ const queryBuilder = ( { idNetlifyIdentity } ) => gql`
           _id
           name
           content
+          isPublic
         }        
       }
     }
   }
 `
 
-exports.handler = async( event, context, callback ) => {
-  const { idNetlifyIdentity } = event.queryStringParameters
-  const query = queryBuilder( { idNetlifyIdentity } )
-
+exports.handler = async( event, context ) => {
   try {
-    const results = await graphQLClient.query( {
-      query
-    } )
+    const { id } = checkIsAuthenticated( context )
+    const results = await graphQLClient.query( { query, variables: { id } } )
 
-    callback( null, {
-      statusCode: OK,
-      body: JSON.stringify( results ),
-    } )
+    return handleSuccess(
+      results,
+      results.data.findUserByIdNetlifyIdentity === null ? NOT_FOUND : OK
+    )
   } catch ( error ) {
-    callback( null, {
-      statusCode: INTERNAL_ERROR,
-      body: JSON.stringify( error.message ),
-    } )
+    console.error( 'An error ocurred: ', error )
+
+    return handleError( error )
   }
 }
