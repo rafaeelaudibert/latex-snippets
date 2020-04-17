@@ -1,7 +1,7 @@
 type Snippet @collection(name: "snippets") {
   name: String!
   content: String!
-  public: Boolean!
+  isPublic: Boolean!
   user: User!
 }
 
