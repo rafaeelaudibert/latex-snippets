@@ -32,14 +32,14 @@ export default ( props ) => {
             size='medium'
             icon={<Logout />}
             label={screenSize !== 'small' ? 'Log out' : null}
-            onClick={() => loginAction()}
+            onClick={() => logoutAction()}
           /> :
           <Button
             focusIndicator={false}
             size='medium'
             icon={<Login />}
             label={screenSize !== 'small' ? 'Log in/Sign up' : null}
-            onClick={() => logoutAction()}
+            onClick={() => loginAction()}
           /> }
       </Box>
     </Box>
