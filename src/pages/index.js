@@ -13,7 +13,6 @@ export default () => {
     <ApplicationWrapper>
       <Box fill>
         <AppBar/>
-
         <IndexBody
           showSidebar={showSidebar}
           closeSidebar={() => setShowSidebar( false )}
