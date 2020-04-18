@@ -22,7 +22,7 @@ const query = gql`
   }
 `
 
-exports.handler = async( event, context ) => {
+exports.handler = async( _event, context ) => {
   try {
     const { id } = checkIsAuthenticated( context )
     const results = await graphQLClient.query( { query, variables: { id } } )

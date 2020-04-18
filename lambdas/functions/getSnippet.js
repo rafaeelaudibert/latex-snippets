@@ -30,7 +30,7 @@ exports.handler = async( event, context ) => {
       // Die silently, as we only want the current user email
     }
 
-    const { id } = JSON.parse( event.body )
+    const { id } = event.queryStringParameters
     const results = await graphQLClient.query( { query, variables: { id } } )
 
     // If it doesn't exist it is a 404,
