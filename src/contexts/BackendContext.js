@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import useLogin from '../hooks/useLogin'
-import { createSnippet, deleteSnippet, saveSnippet } from '../services/snippet.service'
+import { createSnippet, deleteSnippet, getSnippet, updateSnippet } from '../services/snippet.service'
 import { getOrCreateUser } from '../services/user.service'
 
 export const BackendContext = React.createContext( {} )
@@ -32,7 +32,8 @@ const BackendProvider = ( { children } ) => {
         snippetApi: {
           createSnippet,
           deleteSnippet,
-          saveSnippet
+          getSnippet,
+          updateSnippet,
         },
         loginAction: loginHandler.open,
         logoutAction: loginHandler.logout,
