@@ -10,6 +10,10 @@ const createUser = ( currentUser ) => {
 }
 
 export const getOrCreateUser = async( currentUser ) => {
+  if ( !currentUser ) {
+    return null
+  }
+
   let user = await getUser( currentUser )
   if ( user === null ) {
     user = await createUser( currentUser )

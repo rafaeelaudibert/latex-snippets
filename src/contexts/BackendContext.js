@@ -8,22 +8,15 @@ export const BackendContext = React.createContext( {} )
 const BackendProvider = ( { children } ) => {
   const [ providerUser, loginHandler ] = useLogin()
   const [ user, setUser ] = useState( null )
-  const [ loading, setLoading ] = useState( false )
+  const [ isLoading, setIsLoading ] = useState( true )
   const [ error, setError ] = useState()
 
-  // When the provider user changes:
-  //    * if we have a user, we fetch the data from the API;
-  //    * else, we clear the user which is being passed to the provider consumers.
+  // When the provider user changes, we fetch it from the api
   useEffect( () => {
-    if ( !providerUser ) {
-      setUser( null )
-    }
-
-    setLoading( true )
-    getOrCreateUser( providerUser, providerUser )
+    setTimeout( () => getOrCreateUser( providerUser )
       .then( setUser )
-      .then( () => setLoading( false ) )
-      .catch( setError )
+      .then( () => setIsLoading( false ) )
+      .catch( setError ), 1500 ) //eslint-disable-line no-magic-numbers
   }, [ providerUser ] )
 
   return (
@@ -38,7 +31,7 @@ const BackendProvider = ( { children } ) => {
         loginAction: loginHandler.open,
         logoutAction: loginHandler.logout,
         error,
-        loading,
+        isLoading,
         clearError: () => setError( null ),
         user
       }}
