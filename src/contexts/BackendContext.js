@@ -1,22 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import useLogin from '../hooks/useLogin'
-import { createSnippet, deleteSnippet, getSnippet, updateSnippet } from '../services/snippet.service'
+import {
+  createSnippet,
+  deleteSnippet,
+  getSnippet,
+  updateSnippet
+} from '../services/snippet.service'
 import { getOrCreateUser } from '../services/user.service'
+import { ErrorContext } from './ErrorContext'
+
 
 export const BackendContext = React.createContext( {} )
 
 const BackendProvider = ( { children } ) => {
   const [ providerUser, loginHandler ] = useLogin()
+
   const [ user, setUser ] = useState( null )
   const [ isLoading, setIsLoading ] = useState( true )
-  const [ error, setError ] = useState()
+
+  const { setAuthError } = useContext( ErrorContext )
 
   // When the provider user changes, we fetch it from the api
   useEffect( () => {
-    setTimeout( () => getOrCreateUser( providerUser )
+    getOrCreateUser( providerUser )
       .then( setUser )
       .then( () => setIsLoading( false ) )
-      .catch( setError ), 1500 ) //eslint-disable-line no-magic-numbers
+      .catch( error => setAuthError( { error } ) )
   }, [ providerUser ] )
 
   return (
@@ -30,9 +39,7 @@ const BackendProvider = ( { children } ) => {
         },
         loginAction: loginHandler.open,
         logoutAction: loginHandler.logout,
-        error,
         isLoading,
-        clearError: () => setError( null ),
         user
       }}
     >
