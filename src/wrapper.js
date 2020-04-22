@@ -1,20 +1,9 @@
 import { useContext } from 'react'
-import { Box, Grommet, ResponsiveContext } from 'grommet'
-import ClipLoader from 'react-spinners/ClipLoader'
-
+import { Grommet, ResponsiveContext } from 'grommet'
+import Loader from './components/Common/Loader'
 import Theme from './theme'
 
 import BackendProvider, { BackendContext } from './contexts/BackendContext'
-
-const Loader = () => (
-  <Box flex fill align='center' justify='center'>
-    <ClipLoader
-      size={30}
-      color={Theme.global.colors.brand.dark}
-      loading={true}
-    />
-  </Box>
-)
 
 const InnerWrapper = ( { children } ) => {
   const { isLoading } = useContext( BackendContext )
