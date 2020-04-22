@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 import graphQLClient from '../lib/graphQLClient'
 import { OK, NOT_FOUND, FORBIDDEN } from '../constants/statusHttp'
-import { handleError, handleSuccess } from '../lib/response'
+import { handleCors, handleError, handleSuccess } from '../lib/response'
 import checkIsAuthenticated from '../lib/auth'
 
 const query = gql`
@@ -21,6 +21,11 @@ const query = gql`
 `
 
 exports.handler = async( event, context ) => {
+  const corsHandler = handleCors( event )
+  if ( corsHandler ) {
+    return corsHandler
+  }
+
   try {
     let currentUserEmail = ''
     try {

@@ -1,4 +1,4 @@
-const BASE_PATH = 'https://localhost:9000/'
+const BASE_PATH = 'http://localhost:9000/'
 
 const getToken = async( currentUser ) => {
   if ( !currentUser ) {

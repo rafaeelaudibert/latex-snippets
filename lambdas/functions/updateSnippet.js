@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import graphQLClient from '../lib/graphQLClient'
 import { OK, NOT_FOUND } from '../constants/statusHttp'
 import checkIsAuthenticated from '../lib/auth'
-import { handleError, handleSuccess } from '../lib/response'
+import { handleCors, handleError, handleSuccess } from '../lib/response'
 
 const mutation = gql`
   mutation updateSnippet($id: ID!, $name: String!, $content: String!, $isPublic: Boolean!){
@@ -22,6 +22,11 @@ const mutation = gql`
 `
 
 exports.handler = async( event, context ) => {
+  const corsHandler = handleCors( event )
+  if ( corsHandler ) {
+    return corsHandler
+  }
+
   try {
     checkIsAuthenticated( context )
     const { id, name, content, isPublic } = JSON.parse( event.body )
