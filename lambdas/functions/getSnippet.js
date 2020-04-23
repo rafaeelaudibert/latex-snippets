@@ -40,7 +40,7 @@ exports.handler = async( event, context ) => {
 
     // If it doesn't exist it is a 404,
     // if it is not public, and the logged in user is not the owner of it, it is a 403
-    const isSnippetPublic = results.data.findSnippetByID?.public
+    const isSnippetPublic = results.data.findSnippetByID?.isPublic
     const isSnippetFromThisUser = results.data.findSnippetByID?.user?.email === currentUserEmail //eslint-disable-line max-len
     if ( !results.data.findSnippetByID ) {
       return handleSuccess(
