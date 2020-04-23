@@ -20,7 +20,7 @@ const PageWrapper = ( { children } ) => {
     <Box fill>
       <AppBar/>
       <Box direction='row' flex overflow={{ horizontal: 'hidden' }}>
-        <Box flex align='center' justify='center'>
+        <Box flex pad={'large'}>
           {children}
         </Box>
         <Sidebar
