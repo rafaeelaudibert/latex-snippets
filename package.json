@@ -39,10 +39,8 @@
     "netlify-identity-widget": "^1.5.6",
     "next": "^9.3.4",
     "next-images": "^1.4.0",
-    "polished": "^3.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-rainbow-components": "^1.14.1",
     "react-spinners": "^0.8.1",
     "styled-components": "^5.1.0"
   },
