@@ -3,6 +3,7 @@ import netlifyIdentity from 'netlify-identity-widget'
 
 export default function useLogin() {
   const [ user, setUser ] = useState()
+  const [ fetched, setFetched ] = useState( false )
 
   // Initialize netlifyIdentity in a use effect,
   // as it refers to `document` and it would break
@@ -14,7 +15,8 @@ export default function useLogin() {
 
     // Get the (maybe) already set user
     setUser( netlifyIdentity.currentUser() )
+    setFetched( true )
   }, [] )
 
-  return [ user, netlifyIdentity ]
+  return [ user, fetched, netlifyIdentity ]
 }

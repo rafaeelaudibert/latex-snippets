@@ -13,7 +13,7 @@ import { ErrorContext } from './ErrorContext'
 export const BackendContext = React.createContext( {} )
 
 const BackendProvider = ( { children } ) => {
-  const [ providerUser, loginHandler ] = useLogin()
+  const [ providerUser, isUserReady, loginHandler ] = useLogin()
 
   const [ user, setUser ] = useState( null )
   const [ isLoading, setIsLoading ] = useState( true )
@@ -22,10 +22,12 @@ const BackendProvider = ( { children } ) => {
 
   // When the provider user changes, we fetch it from the api
   useEffect( () => {
-    getOrCreateUser( providerUser )
-      .then( setUser )
-      .then( () => setIsLoading( false ) )
-      .catch( error => setAuthError( { error } ) )
+    if ( isUserReady ) {
+      getOrCreateUser( providerUser )
+        .then( user => setUser( user.data.findUserByIdNetlifyIdentity ) )
+        .then( () => setIsLoading( false ) )
+        .catch( error => setAuthError( { error } ) )
+    }
   }, [ providerUser ] )
 
   return (
