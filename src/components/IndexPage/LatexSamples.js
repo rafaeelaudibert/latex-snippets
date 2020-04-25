@@ -19,7 +19,7 @@ const latexItems = [
   },
   {
     name: 'Maxwell\'s equations',
-    latexContent: '\\begin{equation}\\left.\\begin{aligned}B\'&=-\\partial \\times E,\\\\E\'&=\\partial\\times B - 4\\pi j,\\end{aligned}\\right\\}\\qquad \\text{Maxwell\'s equations}\\end{equation}'
+    latexContent: '\\begin{equation}\\begin{aligned}B\'&=-\\partial \\times E,\\\\E\'&=\\partial\\times B - 4\\pi j\\end{aligned}\\end{equation}'
   }
 ]
 
