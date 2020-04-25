@@ -2,7 +2,7 @@ import { Box, Heading, Paragraph } from 'grommet'
 
 export default () => (
   <Box align='center' justify='center' background='accent-2' pad='large' height="medium" >
-    <Heading margin='xsmall'>
+    <Heading textAlign='center' margin='xsmall'>
       Your LateX playground
     </Heading>
     <Paragraph textAlign='center' margin='xsmall'>
