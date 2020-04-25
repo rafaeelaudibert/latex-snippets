@@ -24,7 +24,7 @@ const BackendProvider = ( { children } ) => {
   useEffect( () => {
     if ( isUserReady ) {
       getOrCreateUser( providerUser )
-        .then( user => setUser( user && user.data.findUserByIdNetlifyIdentity ) )
+        .then( user => setUser( user?.data?.findUserByIdNetlifyIdentity ) )
         .then( () => setIsLoading( false ) )
         .catch( error => setAuthError( { error } ) )
     }
