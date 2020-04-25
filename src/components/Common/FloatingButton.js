@@ -8,7 +8,8 @@ const FloatingButtonStyle = {
   right: 40,
   borderRadius: 50,
   textAlign: 'center',
-  boxShadow: '2px 2px 3px #999'
+  boxShadow: '2px 2px 10px #999',
+  background: '#fff'
 }
 
 export default props => <Button style={FloatingButtonStyle} {...props}>
