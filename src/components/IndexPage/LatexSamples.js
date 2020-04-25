@@ -26,9 +26,9 @@ const latexItems = [
 export default ( { setTex } ) => (
   <Box pad='small'>
     <Text alignSelf='center' align='center'>Some samples for you to try:</Text>
-    <Box fill='vertical' margin='small' direction='row' align='center' justify='center' wrap='true'>
+    <Box fill='vertical' margin='small' direction='row' align='center' justify='center' wrap={true}>
       {latexItems.map( ( { name, latexContent } ) => (
-        <Button margin='small' label={name} onClick={() => setTex( latexContent )}/>
+        <Button key={name} margin='small' label={name} onClick={() => setTex( latexContent )}/>
       ) )}
     </Box>
   </Box>
