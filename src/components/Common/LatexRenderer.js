@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import MathJax from 'react-mathjax2'
 import { Box, TextArea } from 'grommet'
 import styled from 'styled-components'
@@ -46,9 +44,7 @@ const LatexInput = ( { tex, setTex } ) => {
   )
 }
 
-export default () => {
-  const [ tex, setTex ] = useState( '' )
-
+export default ( { tex: tex, setTex } ) => {
   return (
     <Box direction='row' justify='center' align='center' wrap={true}>
       <LatexInput tex={tex} setTex={setTex}/>
