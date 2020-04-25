@@ -1,5 +1,5 @@
 import MathJax from 'react-mathjax2'
-import { Box, TextArea } from 'grommet'
+import { Box, Text, TextArea } from 'grommet'
 import styled from 'styled-components'
 
 const MinWidthBox = styled( Box )`
@@ -11,7 +11,7 @@ const MinWidthBox = styled( Box )`
   }
 `
 
-const BorderedBox = styled( MinWidthBox )`
+const BorderedBox = styled( Box )`
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,0.33);
   height: 200px;
@@ -19,11 +19,14 @@ const BorderedBox = styled( MinWidthBox )`
 
 const LatexOutput = ( { tex } ) => {
   return (
-    <BorderedBox align='center' justify='center' margin={{ vertical: 'small' }}>
-      <MathJax.Context input='tex'>
-        <MathJax.Node>{tex}</MathJax.Node>
-      </MathJax.Context>
-    </BorderedBox>
+    <MinWidthBox>
+      <Text weight='bold' color='dark-5'>Rendered LateX</Text>
+      <BorderedBox align='center' justify='center' margin={{ vertical: 'xsmall' }}>
+        <MathJax.Context input='tex'>
+          <MathJax.Node>{tex}</MathJax.Node>
+        </MathJax.Context>
+      </BorderedBox>
+    </MinWidthBox>
   )
 }
 
@@ -31,14 +34,17 @@ const LatexInput = ( { tex, setTex } ) => {
   const NUM_ROWS = 8
 
   return (
-    <MinWidthBox align='center' justify='center'>
-      <TextArea
-        placeholder="Insert your TeX text here"
-        resize={false}
-        rows={NUM_ROWS}
-        value={tex}
-        onChange={event => setTex( event.target.value )}
-      />
+    <MinWidthBox justify='center'>
+      <Text weight='bold' color='dark-5'>Input</Text>
+      <Box margin={{ vertical: 'xsmall' }}>
+        <TextArea
+          placeholder="Insert your TeX text here"
+          resize={false}
+          rows={NUM_ROWS}
+          value={tex}
+          onChange={event => setTex( event.target.value )}
+        />
+      </Box>
     </MinWidthBox>
   )
 }
