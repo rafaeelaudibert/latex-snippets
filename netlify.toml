@@ -1,5 +1,5 @@
 [build]
-  functions = "lambdas/functions_out"
+  functions = "lambdas/functions"
 
 [[plugins]]
   package = "netlify-plugin-cache-nextjs"
