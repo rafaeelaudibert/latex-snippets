@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
-import { Box, ResponsiveContext } from 'grommet'
+import { Anchor, Box, Footer, ResponsiveContext, Text } from 'grommet'
+import Link from 'next/link'
 import { CaretPrevious, Close } from 'grommet-icons'
 
 import Sidebar from './Sidebar'
@@ -16,11 +17,16 @@ const PageWrapper = ( { children } ) => {
   const { user } = useContext( BackendContext )
   const screenSize = useContext( ResponsiveContext )
 
+  const initialYear = 2020
+  const currentYear = new Date().getFullYear()
+  const isInitialYear = initialYear === currentYear
+  const textYearCopyright = isInitialYear ? initialYear : `${initialYear} - ${currentYear}`
+
   return (
-    <Box fill>
+    <Box>
       <AppBar/>
       <Box direction='row' flex overflow={{ horizontal: 'hidden' }}>
-        <Box flex pad={'large'}>
+        <Box fill>
           {children}
         </Box>
         <Sidebar
@@ -34,6 +40,19 @@ const PageWrapper = ( { children } ) => {
           </FloatingButton>
         ) }
       </Box>
+
+      <Footer background="brand" pad="medium" justify="between">
+        <Box direction="row" fill justify="start">
+          <Link href='/faq'>
+            <Anchor margin={{ horizontal: 'small' }} label="FAQ" color="dark-1"/>
+          </Link>
+          <Anchor href='https://github.com/rafaeelaudibert/latex-snippets' margin={{ horizontal: 'small' }} label="Github" color="dark-1"/>
+          <Anchor href='mailto:rafaeelaudibert@gmail.com' margin={{ horizontal: 'small' }} label="Contact" color="dark-1"/>
+        </Box>
+        <Box justify="end" width="medium">
+          <Text size="small" textAlign="end">Copyright RafaAudibert {textYearCopyright}</Text>
+        </Box>
+      </Footer>
     </Box>
   )
 }
