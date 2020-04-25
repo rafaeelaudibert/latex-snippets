@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 import { Box, Heading, Image, Paragraph, ResponsiveContext } from 'grommet'
 
+import Hr from '../Common/Hr'
+
 import articleSvg from '../../images/article.svg'
 import snippetSvg from '../../images/snippet.svg'
 import shareSvg from '../../images/share.svg'
@@ -40,21 +42,26 @@ export default () => {
   const BoxFeatures = screenSize === 'small' ? BoxFeaturesSmall : BoxFeaturesDesktop
 
   return (
-    <BoxFeatures background='accent-4'>
-      {features.map( ( { title, text, image } ) => (
-        <Box key={title} fill='vertical' align='center' justify='center' basis='1/3' pad='medium'>
-          <Box height='small'>
-            <Image
-              fill
-              src={image}
-              alt={title}
-            />
-          </Box>
+    <Box align='center' justify='center' alignText='center' margin={{ top: 'large' }}>
+      <Hr/>
+      <Heading level='2'>Features</Heading>
+      <BoxFeatures background='accent-4'>
+        {features.map( ( { title, text, image } ) => (
+          <Box key={title} fill='vertical' align='center' justify='center' basis='1/3' pad='medium'>
+            <Box height='small'>
+              <Image
+                fill
+                src={image}
+                alt={title}
+              />
+            </Box>
 
-          <Heading level={screenSize === 'small' ? '2' : '3'}>{title}</Heading>
-          <Paragraph textAlign='center'>{text}</Paragraph>
-        </Box>
-      ) )}
-    </BoxFeatures>
+            <Heading level={screenSize === 'small' ? '2' : '3'}>{title}</Heading>
+            <Paragraph textAlign='center'>{text}</Paragraph>
+          </Box>
+        ) )}
+      </BoxFeatures>
+    </Box>
+
   )
 }
