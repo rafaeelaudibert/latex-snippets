@@ -45,7 +45,7 @@ export default () => {
     <Box align='center' justify='center' alignText='center' margin={{ top: 'large' }}>
       <Hr/>
       <Heading level='2'>Features</Heading>
-      <BoxFeatures background='accent-4'>
+      <BoxFeatures background='accent-4' margin={{ bottom: 'xlarge' }}>
         {features.map( ( { title, text, image } ) => (
           <Box key={title} fill='vertical' align='center' justify='center' basis='1/3' pad='medium'>
             <Box height='small'>
