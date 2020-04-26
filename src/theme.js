@@ -1,10 +1,13 @@
+const brandColor = '#7CC6FE'
+
 export default {
   global: {
     colors: {
       brand: {
-        light: '#7CC6FE',
+        light: brandColor,
         dark: '#0C1D47'
-      }
+      },
+      focus: brandColor
     },
     font: {
       family: 'Roboto',
