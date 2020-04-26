@@ -26,7 +26,7 @@ const BackendProvider = ( { children } ) => {
       getOrCreateUser( providerUser )
         .then( user => setUser( user?.data?.findUserByIdNetlifyIdentity ) )
         .then( () => setIsLoading( false ) )
-        .catch( error => setAuthError( { error } ) )
+        .catch( error => setAuthError( { error: error.stack.toString() } ) )
     }
   }, [ providerUser ] )
 
