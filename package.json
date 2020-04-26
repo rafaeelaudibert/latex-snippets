@@ -11,7 +11,7 @@
     "build:app": "next build",
     "build:functions": "netlify-lambda build lambdas/functions",
     "export:app": "next export",
-    "deploy:app": "npm run build:app && npm run export:app"
+    "deploy:app": "npm run build && npm run export:app"
   },
   "repository": {
     "type": "git",

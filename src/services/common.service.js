@@ -1,4 +1,6 @@
-const BASE_PATH = process.env.URL || 'http://localhost:9000/'
+const LOCAL_LAMBDA_PORT = '9000'
+const isLocal = () => window.location.hostname.includes( 'localhost' )
+const BASE_PATH = () => isLocal() ? `http://localhost:${LOCAL_LAMBDA_PORT}/` : '/.netlify/functions/'
 
 const getToken = async( currentUser ) => {
   if ( !currentUser ) {
@@ -22,7 +24,7 @@ export const GET = async( endpoint, currentUser ) => {
   const token = await getToken( currentUser )
   const headers = buildHeaders( token )
 
-  return fetch( `${BASE_PATH}${endpoint}`, { headers } ).then( data => data.json() )
+  return fetch( `${BASE_PATH()}${endpoint}`, { headers } ).then( data => data.json() )
 }
 
 export const POST = async( endpoint, body, currentUser ) => {
@@ -30,7 +32,7 @@ export const POST = async( endpoint, body, currentUser ) => {
   const headers = buildHeaders( token )
 
   return fetch(
-      `${BASE_PATH}${endpoint}`,
+      `${BASE_PATH()}${endpoint}`,
       {
         body: JSON.stringify( body ),
         headers,
@@ -44,7 +46,7 @@ export const PUT = async( endpoint, body, currentUser ) => {
   const headers = buildHeaders( token )
 
   return fetch(
-      `${BASE_PATH}${endpoint}`,
+      `${BASE_PATH()}${endpoint}`,
       {
         body: JSON.stringify( body ),
         headers,
@@ -58,7 +60,7 @@ export const DELETE = async( endpoint, body, currentUser ) => {
   const headers = buildHeaders( token )
 
   return fetch(
-      `${BASE_PATH}${endpoint}`,
+      `${BASE_PATH()}${endpoint}`,
       {
         body: JSON.stringify( body ),
         headers,

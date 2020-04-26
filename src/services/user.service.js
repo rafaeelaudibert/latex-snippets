@@ -1,4 +1,4 @@
-import { GET, POST } from './common'
+import { GET, POST } from './common.service'
 
 const getUser = async( currentUser ) => {
   const response = await GET( 'getUser', currentUser )

@@ -1,4 +1,4 @@
-import { GET, POST, PUT, DELETE } from './common'
+import { GET, POST, PUT, DELETE } from './common.service'
 
 export const createSnippet = ( { name, content, isPublic, userId }, currentUser ) => {
   return POST( 'createSnippet', { name, content, isPublic, userId }, currentUser )
