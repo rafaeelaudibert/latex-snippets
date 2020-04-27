@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const MinWidthBox = styled( Box )`
   min-width: 47%;
-  margin: 1rem;
+  margin: 0.5rem;
 
   @media screen and (max-width: 800px) {
     min-width: 90%;
@@ -17,10 +17,10 @@ const BorderedBox = styled( Box )`
   height: 200px;
 `
 
-const LatexOutput = ( { tex } ) => {
+export const LatexOutput = ( { tex, showLabel=true } ) => {
   return (
     <MinWidthBox>
-      <Text weight='bold' color='dark-5'>Rendered LateX</Text>
+      {showLabel && <Text weight='bold' color='dark-5'>Rendered LateX</Text>}
       <BorderedBox align='center' justify='center' margin={{ vertical: 'xsmall' }}>
         <MathJax.Context input='tex'>
           <MathJax.Node>{tex}</MathJax.Node>
@@ -30,12 +30,12 @@ const LatexOutput = ( { tex } ) => {
   )
 }
 
-const LatexInput = ( { tex, setTex } ) => {
+export const LatexInput = ( { tex, setTex, showLabel=true } ) => {
   const NUM_ROWS = 8
 
   return (
     <MinWidthBox justify='center'>
-      <Text weight='bold' color='dark-5'>Input</Text>
+      {showLabel && <Text weight='bold' color='dark-5'>Input</Text>}
       <Box margin={{ vertical: 'xsmall' }}>
         <TextArea
           placeholder="Insert your TeX text here"

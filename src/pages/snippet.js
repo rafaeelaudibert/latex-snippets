@@ -23,9 +23,16 @@ const Snippet = ( { query: { id } } ) => {
 
   useEffect( () => {
     const getSnippetData = async() => {
+      // TODO: Check what information needs to be added here,
+      // so that we can know if there is no snippet, and we are creating a new one
+      if ( !id ) {
+        setLoading( false )
+        setSnippet( {} )
+      }
+
       const snippet = await getSnippet( { id } )
 
-      if ( !id || snippet.statusCode === NOT_FOUND ) {
+      if ( snippet.statusCode === NOT_FOUND ) {
         return setNotFoundError( { resource: 'snippet' } )
       } else if ( snippet.statusCode === FORBIDDEN ) {
         return setUnauthorizedError( { resource: 'snippet' } )
@@ -41,9 +48,7 @@ const Snippet = ( { query: { id } } ) => {
     return <Loader/>
   }
 
-  return (
-    'Snippet page body'
-  )
+  return JSON.stringify( snippet )
 }
 
 const Page = ( { query } ) => (
