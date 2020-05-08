@@ -1,5 +1,14 @@
 [build]
   functions = "lambdas/functions_out"
 
+  [build.environment]
+  TERM = "xterm"
+  CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
+
 [[plugins]]
   package = "netlify-plugin-cache-nextjs"
+
+[[plugins]]
+  package = "netlify-plugin-cypress"
+  [plugins.inputs]
+    record = true
