@@ -73,6 +73,7 @@ const Snippets = () => {
       {snippets.map( ( snippet ) => (
         <SnippetsCard
           key={snippet._id}
+          id={snippet._id}
           content={snippet.content}
           name={snippet.name}
           isPublic={snippet.isPublic}
