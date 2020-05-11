@@ -49,7 +49,7 @@ export const LatexInput = ( { editable, tex, setTex, showLabel=true } ) => {
   )
 }
 
-export default ( { editable, tex, setTex, ...props } ) => {
+export default ( { editable=true, tex, setTex, ...props } ) => {
   return (
     <Box direction='row' justify='center' align='center' wrap={true} margin="small">
       <LatexInput tex={tex} setTex={setTex} editable={editable} {...props}/>
