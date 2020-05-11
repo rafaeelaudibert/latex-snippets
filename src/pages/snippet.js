@@ -61,7 +61,7 @@ const Snippet = ( { query: { id: snippetQueryId, content: snippetQueryContent=''
         return
       }
 
-      const snippet = await getSnippet( { _id: snippetQueryId } )
+      const snippet = await getSnippet( { _id: snippetQueryId }, providerUser )
 
       if ( snippet.statusCode === NOT_FOUND ) {
         return setNotFoundError( { resource: 'snippet' } )
