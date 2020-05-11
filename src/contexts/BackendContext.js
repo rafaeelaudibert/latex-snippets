@@ -24,7 +24,7 @@ const BackendProvider = ( { children } ) => {
   useEffect( () => {
     if ( isUserReady ) {
       getOrCreateUser( providerUser )
-        .then( user => setUser( user?.data?.findUserByIdNetlifyIdentity ) )
+        .then( user => setUser( user?.data ) )
         .then( () => setIsLoading( false ) )
         .catch( error => setAuthError( { error: error.stack.toString() } ) )
     }
@@ -42,6 +42,7 @@ const BackendProvider = ( { children } ) => {
         loginAction: loginHandler.open,
         logoutAction: loginHandler.logout,
         isLoading,
+        providerUser,
         user
       }}
     >
