@@ -45,17 +45,16 @@ exports.handler = async( event, context ) => {
     const isSnippetFromThisUser = data?.user?.email === currentUserEmail
 
     const wasNotFound = data === null
-    const wasForbidden = !isSnippetPublic && !isSnippetFromThisUser
+    const isSnippetAccessible = isSnippetPublic || isSnippetFromThisUser
 
+    console.log( { isSnippetPublic, isSnippetFromThisUser, wasNotFound, isSnippetAccessible } ) // eslint-disable-line no-console
     return handleSuccess(
       data,
-      wasNotFound ?
-        NOT_FOUND :
-        (
-          wasForbidden ?
-            FORBIDDEN :
-            OK
-        )
+      isSnippetAccessible ?
+        OK :
+        wasNotFound ?
+          NOT_FOUND :
+          FORBIDDEN
     )
   } catch ( error ) {
     console.error( 'An error ocurred: ', error )
