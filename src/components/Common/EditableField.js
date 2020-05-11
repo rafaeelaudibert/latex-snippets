@@ -1,11 +1,15 @@
 // Partially extracted from https://blog.logrocket.com/the-complete-guide-to-building-inline-editable-ui-in-react/, kudos to Paramanantham Harrison
 
 import React, { useState, useEffect, useRef } from 'react'
-import { TextInput } from 'grommet'
+import { Box, TextInput, Text } from 'grommet'
 import styled from 'styled-components'
 
-const EditableSpan = styled( 'span' )`
-    padding: 11px
+const PaddedSpan = styled( Box )`
+    padding-left: 2.5rem
+`
+
+const PaddedTextInput = styled( TextInput )`
+  padding-left: 2.5rem 
 `
 
 const EditableField = ( {
@@ -14,6 +18,9 @@ const EditableField = ( {
   text,
   name,
   editable=true,
+  textSize='medium',
+  textWeight='normal',
+  textColor='dark',
   ...props
 } ) => {
   const [ isEditing, setEditing ] = useState( false )
@@ -41,7 +48,8 @@ const EditableField = ( {
         onBlur={() => setEditing( false )}
         onKeyDown={handleKeyDown}
       >
-        <TextInput
+        <PaddedTextInput
+          size={textSize}
           ref={childrenRef}
           name={name}
           focusIndicator={false}
@@ -53,9 +61,15 @@ const EditableField = ( {
       </div>
     ) :
     (
-      <EditableSpan onClick={() => setEditing( true )} >
-        {text || placeholder || ''}
-      </EditableSpan>
+      <PaddedSpan
+        onClick={() => setEditing( true )}
+        {...props}
+      >
+        <Text size={textSize} weight={textWeight} color={textColor}>
+          {text || placeholder || ''}
+        </Text>
+
+      </PaddedSpan>
     )
 }
 
