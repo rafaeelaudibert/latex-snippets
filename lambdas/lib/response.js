@@ -8,6 +8,7 @@ export const handleCors = ( event ) => {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers':
           'Authorization, Origin, X-Requested-With, Content-Type, Accept',
+        'Access-Control-Allow-Methods': '*'
       },
       body: JSON.stringify( { message: 'You can use CORS locally normally now' } ),
     }
