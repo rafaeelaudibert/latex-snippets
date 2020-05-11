@@ -31,12 +31,12 @@ exports.handler = async( event, context ) => {
     checkIsAuthenticated( context )
     const { id, name, content, isPublic } = JSON.parse( event.body )
 
-    const results = await graphQLClient.mutate( {
+    const { data: { updateSnippet: data } } = await graphQLClient.mutate( {
       mutation,
       variables: { id, name, content, isPublic }
     } )
 
-    return handleSuccess( results, results.data.updateSnippet === null ? NOT_FOUND : OK )
+    return handleSuccess( data, data === null ? NOT_FOUND : OK )
   } catch ( error ) {
     console.error( 'An error ocurred: ', error )
 

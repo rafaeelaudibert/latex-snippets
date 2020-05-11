@@ -36,27 +36,26 @@ exports.handler = async( event, context ) => {
     }
 
     const { id } = event.queryStringParameters
-    const results = await graphQLClient.query( { query, variables: { id } } )
+    const {
+      data: { findSnippetById: data }
+    } = await graphQLClient.query( { query, variables: { id } } )
 
     // If it doesn't exist it is a 404,
     // if it is not public, and the logged in user is not the owner of it, it is a 403
-    const isSnippetPublic = results.data.findSnippetByID?.isPublic
-    const isSnippetFromThisUser = results.data.findSnippetByID?.user?.email === currentUserEmail //eslint-disable-line max-len
-    if ( !results.data.findSnippetByID ) {
-      return handleSuccess(
-        results,
-        NOT_FOUND
-      )
-    } else if ( !isSnippetPublic && !isSnippetFromThisUser ) {
-      return handleSuccess(
-        { },
-        FORBIDDEN
-      )
-    }
+    const isSnippetPublic = data?.isPublic
+    const isSnippetFromThisUser = data?.user?.email === currentUserEmail
 
+    const wasNotFound = data === null
+    const wasForbidden = !isSnippetPublic && !isSnippetFromThisUser
     return handleSuccess(
-      results,
-      OK
+      data,
+      wasNotFound ?
+        NOT_FOUND :
+        (
+          wasForbidden ?
+            FORBIDDEN :
+            OK
+        )
     )
   } catch ( error ) {
     console.error( 'An error ocurred: ', error )

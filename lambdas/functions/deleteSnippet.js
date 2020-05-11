@@ -22,9 +22,14 @@ exports.handler = async( event, context ) => {
     checkIsAuthenticated( context )
     const { id } = JSON.parse( event.body )
 
-    const results = await graphQLClient.mutate( { mutation, variables: { id } } )
+    const {
+      data: { deleteSnippet: data }
+    } = await graphQLClient.mutate( { mutation, variables: { id } } )
 
-    return handleSuccess( results, results.data.deleteSnippet === null ? NOT_FOUND : OK )
+    return handleSuccess(
+      data,
+      data === null ? NOT_FOUND : OK
+    )
   } catch ( error ) {
     console.error( 'An error ocurred: ', error )
 

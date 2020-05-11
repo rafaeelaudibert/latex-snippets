@@ -35,9 +35,11 @@ exports.handler = async( event, context ) => {
   try {
     const { id, name, email } = checkIsAuthenticated( context )
 
-    const results = await graphQLClient.mutate( { mutation, variables: { id, name, email } } )
+    const {
+      data: { createUser: data }
+    } = await graphQLClient.mutate( { mutation, variables: { id, name, email } } )
 
-    return handleSuccess( results, OK )
+    return handleSuccess( data, OK )
   } catch ( error ) {
     console.error( 'An error ocurred: ', error )
 

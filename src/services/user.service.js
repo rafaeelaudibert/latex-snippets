@@ -1,8 +1,9 @@
 import { GET, POST } from './common.service'
+import { OK } from '../constants/statusHttp'
 
 const getUser = async( currentUser ) => {
   const response = await GET( 'getUser', currentUser )
-  return response.statusCode === 200 ? response : null // eslint-disable-line no-magic-numbers
+  return response.statusCode === OK ? response : null
 }
 
 const createUser = ( currentUser ) => {

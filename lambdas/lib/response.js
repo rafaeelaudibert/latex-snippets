@@ -18,7 +18,7 @@ export const handleCors = ( event ) => {
 
 export const handleSuccess = ( data, statusCode ) => {
   return {
-    body: JSON.stringify( { ...data, statusCode } ),
+    body: JSON.stringify( { data, statusCode } ),
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
