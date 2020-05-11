@@ -1,4 +1,5 @@
-import { Box, Heading, Text } from 'grommet'
+import Link from 'next/link'
+import { Box, Button, Heading, Text } from 'grommet'
 import styled from 'styled-components'
 
 import Card from '../Common/Card'
@@ -12,7 +13,7 @@ const Title = styled( Heading )`
   font-weight: 400;
 `
 
-export default ( { name='LateX Snippet', content, isPublic } ) => {
+export default ( { id, name='LateX Snippet', content, isPublic } ) => {
   return (
     <Card>
       <Box fill>
@@ -26,8 +27,12 @@ export default ( { name='LateX Snippet', content, isPublic } ) => {
           </Badge>
         </Box>
         <LatexOutput showLabel={false} tex={content}/>
-        <Box align='end' justify='end' pad={{ bottom: 'small', right: 'small' }}>
+        <Box direction='row' align='end' justify='end' pad={{ bottom: 'small', right: 'small' }}>
           <ClipboardButton text={content}/>
+          <Link href={`/snippet?id=${id}`}>
+            <Button label='Edit snippet' size='small' margin={{ left: 'small' }}/>
+          </Link>
+
         </Box>
 
       </Box>
