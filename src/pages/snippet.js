@@ -1,36 +1,66 @@
 import { useState, useContext, useEffect } from 'react'
+import styled from 'styled-components'
+
+import { Box, Button, CheckBox, Text } from 'grommet'
 
 import PageWrapper from '../components/Common/PageWrapper'
 import Loader from '../components/Common/Loader'
+import EditableField from '../components/Common/EditableField'
+import LatexRenderer from '../components/Common/LatexRenderer'
+import ClipboardButton from '../components/Common/ClipboardButton'
 
 import { BackendContext } from '../contexts/BackendContext'
 import { ErrorContext } from '../contexts/ErrorContext'
 
 import { NOT_FOUND, FORBIDDEN } from '../constants/statusHttp'
 
-const Snippet = ( { query: { id } } ) => {
-  const [ snippet, setSnippet ] = useState( null )
+const PaddedText = styled( Text )`
+  padding-left: 2.5rem;
+`
+
+const Snippet = ( { query: { id: snippetQueryId } } ) => {
+  const [ snippet, setSnippet ] = useState( {} )
   const [ loading, setLoading ] = useState( true )
+  const [ isSaving, setIsSaving ] = useState( false )
 
   const { setNotFoundError, setUnauthorizedError } = useContext( ErrorContext )
   const {
     snippetApi: {
+      createSnippet,
       getSnippet,
-      updateSnippet,
-      deleteSnippet
-    }
+      updateSnippet
+    },
+    providerUser,
+    user
   } = useContext( BackendContext )
+
+  const EMPTY_SNIPPET = () => ( {
+    _id: null,
+    name: '',
+    content: '',
+    isPublic: true,
+    user: {
+      _id: user?._id,
+      name: user?.name,
+      email: user?.email
+    }
+  } )
 
   useEffect( () => {
     const getSnippetData = async() => {
-      // TODO: Check what information needs to be added here,
-      // so that we can know if there is no snippet, and we are creating a new one
-      if ( !id ) {
+      if ( !snippetQueryId ) {
+
+        // Can only access the snippet new page if it is authenticated
+        if ( !user ) {
+          return setUnauthorizedError( { resource: 'snippet' } )
+        }
+
         setLoading( false )
-        setSnippet( {} )
+        setSnippet( EMPTY_SNIPPET() )
+        return
       }
 
-      const snippet = await getSnippet( { id } )
+      const snippet = await getSnippet( { _id: snippetQueryId } )
 
       if ( snippet.statusCode === NOT_FOUND ) {
         return setNotFoundError( { resource: 'snippet' } )
@@ -38,17 +68,88 @@ const Snippet = ( { query: { id } } ) => {
         return setUnauthorizedError( { resource: 'snippet' } )
       }
 
-      setLoading( false )
-      setSnippet( snippet.data.findSnippetByID )
+      setTimeout( () => setLoading( false ), 50 ) // eslint-disable-line no-magic-numbers
+      setSnippet( snippet.data )
     }
     getSnippetData()
-  }, [ id ] )
+  }, [ snippetQueryId, user?.email ] )
+
+  const handleSubmission = async() => {
+    setIsSaving( true )
+    const { data: { _id } } = snippet._id ?
+      await updateSnippet( snippet, providerUser ) :
+      await createSnippet( snippet, providerUser )
+
+    setSnippet( { ...snippet, _id } )
+    setIsSaving( false )
+  }
 
   if ( loading ) {
     return <Loader/>
   }
 
-  return JSON.stringify( snippet )
+  const isSnippetFromLoggedUser = snippet?.user?._id == user?._id
+  return (
+    <Box pad='large' fill='vertical' justify='center'>
+      <EditableField
+        setText={value => setSnippet( { ...snippet, name: value } )}
+        text={snippet.name}
+        placeholder="Snippet name"
+        name="name"
+        editable={isSnippetFromLoggedUser}
+        textWeight='bold'
+        textSize='xlarge'
+        textColor='dark-1'
+      />
+
+      <PaddedText size='small'>
+          Author: {snippet.user.name}
+      </PaddedText>
+
+      {
+        isSnippetFromLoggedUser && (
+          <Box margin={{ top: 'medium' }}>
+            <PaddedText size='small'>
+              <CheckBox
+                checked={snippet.isPublic}
+                label="Public"
+                onChange={( event ) => setSnippet( { ...snippet, isPublic: event.target.checked } )}
+              />
+            </PaddedText>
+          </Box>
+        )
+      }
+
+
+      <LatexRenderer
+        editable={isSnippetFromLoggedUser}
+        tex={snippet.content}
+        setTex={value => setSnippet( { ...snippet, content: value } )}
+        showLabel={false}
+      />
+
+      <Box fill direction='row' justify='end' pad={{ right: 'medium' }}>
+        <ClipboardButton
+          buttonText='Copy shareable link'
+          text={`${window.location.origin}/snippet?id=${snippet._id}`}
+          margin='xsmall'
+          disabled={!snippet?._id}
+          primary={false}
+          color='accent-1'
+        />
+        {
+          isSnippetFromLoggedUser && <Button
+            primary
+            color='brand'
+            label={isSaving ? 'Saving...' : 'Save'}
+            margin='xsmall'
+            disabled={isSaving}
+            onClick={handleSubmission}
+          />
+        }
+      </Box>
+    </Box>
+  )
 }
 
 const Page = ( { query } ) => (
