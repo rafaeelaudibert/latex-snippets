@@ -1,10 +1,9 @@
-import gql from 'graphql-tag'
 import graphQLClient from '../lib/graphQLClient'
 import { OK } from '../constants/statusHttp'
 import checkIsAuthenticated from '../lib/auth'
 import { handleCors, handleError, handleSuccess } from '../lib/response'
 
-const mutation = gql`
+const mutation = `
   mutation createSnippet($name: String!, $content: String!, $isPublic: Boolean!, $userId: ID){
     createSnippet(data: {
         name: $name
@@ -20,7 +19,7 @@ const mutation = gql`
   }
 `
 
-const query = gql`
+const query = `
   query findUser($id: String!) {
     findUserByIdNetlifyIdentity(idNetlifyIdentity: $id) {
       _id      

@@ -1,10 +1,9 @@
-import gql from 'graphql-tag'
 import graphQLClient from '../lib/graphQLClient'
 import { OK, NOT_FOUND } from '../constants/statusHttp'
 import checkIsAuthenticated from '../lib/auth'
 import { handleCors, handleError, handleSuccess } from '../lib/response'
 
-const mutation = gql`
+const mutation = `
   mutation deleteSnippet($id: ID!){
     deleteSnippet(id: $id) {
       _id

@@ -1,10 +1,9 @@
-import gql from 'graphql-tag'
 import graphQLClient from '../lib/graphQLClient'
 import { OK, NOT_FOUND, FORBIDDEN } from '../constants/statusHttp'
 import { handleCors, handleError, handleSuccess } from '../lib/response'
 import checkIsAuthenticated from '../lib/auth'
 
-const query = gql`
+const query = `
   query findSnippetByID($id: ID!) {
     findSnippetByID(id: $id) {
         _id
