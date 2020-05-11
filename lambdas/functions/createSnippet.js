@@ -20,6 +20,14 @@ const mutation = gql`
   }
 `
 
+const query = gql`
+  query findUser($id: String!) {
+    findUserByIdNetlifyIdentity(idNetlifyIdentity: $id) {
+      _id      
+    }
+  }
+`
+
 exports.handler = async( event, context ) => {
   const corsHandler = handleCors( event )
   if ( corsHandler ) {
@@ -27,9 +35,15 @@ exports.handler = async( event, context ) => {
   }
 
   try {
-    const { id: userId } = checkIsAuthenticated( context )
+    const { id: netlifyId } = checkIsAuthenticated( context )
     const { name, content, isPublic } = JSON.parse( event.body )
 
+    // First we fetch the user id
+    const {
+      data: { findUserByIdNetlifyIdentity: { _id: userId } }
+    } = await graphQLClient.query( { query, variables: { id: netlifyId } } )
+
+    // So that we can create the snippet
     const {
       data: { createSnippet: data }
     } = await graphQLClient.mutate( {
