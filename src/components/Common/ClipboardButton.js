@@ -13,7 +13,7 @@ export default ( {
     copiedTimeout
   } )
 
-  if ( !!clipboard.isSupported() ) {
+  if ( !clipboard.isSupported() ) {
     return <Button
       primary
       disabled={true}
