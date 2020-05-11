@@ -29,11 +29,11 @@ exports.handler = async( event, context ) => {
 
   try {
     checkIsAuthenticated( context )
-    const { id, name, content, isPublic } = JSON.parse( event.body )
+    const { _id, name, content, isPublic } = JSON.parse( event.body )
 
     const { data: { updateSnippet: data } } = await graphQLClient.mutate( {
       mutation,
-      variables: { id, name, content, isPublic }
+      variables: { id: _id, name, content, isPublic }
     } )
 
     return handleSuccess( data, data === null ? NOT_FOUND : OK )
