@@ -30,7 +30,7 @@ export const LatexOutput = ( { tex, showLabel=true } ) => {
   )
 }
 
-export const LatexInput = ( { tex, setTex, showLabel=true } ) => {
+export const LatexInput = ( { editable, tex, setTex, showLabel=true } ) => {
   const NUM_ROWS = 8
 
   return (
@@ -42,18 +42,18 @@ export const LatexInput = ( { tex, setTex, showLabel=true } ) => {
           resize={false}
           rows={NUM_ROWS}
           value={tex}
-          onChange={event => setTex( event.target.value )}
+          onChange={event => editable && setTex( event.target.value )}
         />
       </Box>
     </MinWidthBox>
   )
 }
 
-export default ( { tex: tex, setTex } ) => {
+export default ( { editable, tex, setTex, ...props } ) => {
   return (
     <Box direction='row' justify='center' align='center' wrap={true} margin="small">
-      <LatexInput tex={tex} setTex={setTex}/>
-      <LatexOutput tex={tex}/>
+      <LatexInput tex={tex} setTex={setTex} editable={editable} {...props}/>
+      <LatexOutput tex={tex} {...props}/>
     </Box>
   )
 }
