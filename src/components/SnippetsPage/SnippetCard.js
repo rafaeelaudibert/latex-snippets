@@ -28,15 +28,23 @@ export default ( { id, name='LateX Snippet', content, isPublic } ) => {
         </Box>
         <LatexOutput showLabel={false} tex={content}/>
         <Box direction='row' align='end' justify='end' pad={{ bottom: 'small', right: 'small' }}>
-          <ClipboardButton text={content}/>
           <Link href={`/snippet?id=${id}`}>
             <Button label='Edit snippet' size='small' margin={{ left: 'small' }}/>
           </Link>
-
+          <ClipboardButton
+            buttonText='Copy LateX to Clipboard'
+            text={content}
+            margin={{ left: 'small' }}
+          />
+          <ClipboardButton
+            text={`${window.location.origin}/snippet?id=${id}`}
+            buttonText='Share'
+            margin={{ left: 'small' }}
+            color='neutral-3'
+            disabled={!isPublic}
+          />
         </Box>
-
       </Box>
-
     </Card>
   )
 }

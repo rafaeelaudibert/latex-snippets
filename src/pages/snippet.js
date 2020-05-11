@@ -18,10 +18,11 @@ const PaddedText = styled( Text )`
   padding-left: 2.5rem;
 `
 
-const Snippet = ( { query: { id: snippetQueryId } } ) => {
+const Snippet = ( { query: { id: snippetQueryId, content: snippetQueryContent='' } } ) => {
   const [ snippet, setSnippet ] = useState( {} )
   const [ loading, setLoading ] = useState( true )
   const [ isSaving, setIsSaving ] = useState( false )
+  const [ hasChanged, setHasChanged ] = useState( false )
 
   const { setNotFoundError, setUnauthorizedError } = useContext( ErrorContext )
   const {
@@ -37,7 +38,7 @@ const Snippet = ( { query: { id: snippetQueryId } } ) => {
   const EMPTY_SNIPPET = () => ( {
     _id: null,
     name: '',
-    content: '',
+    content: snippetQueryContent,
     isPublic: true,
     user: {
       _id: user?._id,
@@ -82,6 +83,7 @@ const Snippet = ( { query: { id: snippetQueryId } } ) => {
 
     setSnippet( { ...snippet, _id } )
     setIsSaving( false )
+    setHasChanged( false )
   }
 
   if ( loading ) {
@@ -92,11 +94,15 @@ const Snippet = ( { query: { id: snippetQueryId } } ) => {
   return (
     <Box pad='large' fill='vertical' justify='center'>
       <EditableField
-        setText={value => setSnippet( { ...snippet, name: value } )}
+        setText={value => {
+          setSnippet( { ...snippet, name: value } )
+          setHasChanged( true )
+        }}
         text={snippet.name}
         placeholder="Snippet name"
         name="name"
         editable={isSnippetFromLoggedUser}
+        startEditable={snippet.name === ''}
         textWeight='bold'
         textSize='xlarge'
         textColor='dark-1'
@@ -113,7 +119,10 @@ const Snippet = ( { query: { id: snippetQueryId } } ) => {
               <CheckBox
                 checked={snippet.isPublic}
                 label="Public"
-                onChange={( event ) => setSnippet( { ...snippet, isPublic: event.target.checked } )}
+                onChange={( event ) => {
+                  setSnippet( { ...snippet, isPublic: event.target.checked } )
+                  setHasChanged( true )
+                }}
               />
             </PaddedText>
           </Box>
@@ -124,7 +133,10 @@ const Snippet = ( { query: { id: snippetQueryId } } ) => {
       <LatexRenderer
         editable={isSnippetFromLoggedUser}
         tex={snippet.content}
-        setTex={value => setSnippet( { ...snippet, content: value } )}
+        setTex={value => {
+          setSnippet( { ...snippet, content: value } )
+          setHasChanged( true )
+        }}
         showLabel={false}
       />
 
@@ -141,9 +153,9 @@ const Snippet = ( { query: { id: snippetQueryId } } ) => {
           isSnippetFromLoggedUser && <Button
             primary
             color='brand'
-            label={isSaving ? 'Saving...' : 'Save'}
+            label={isSaving ? 'Saving...' : hasChanged ? 'Save' : 'Saved'}
             margin='xsmall'
-            disabled={isSaving}
+            disabled={isSaving || !hasChanged}
             onClick={handleSubmission}
           />
         }

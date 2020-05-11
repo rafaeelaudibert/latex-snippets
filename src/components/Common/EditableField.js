@@ -18,12 +18,13 @@ const EditableField = ( {
   text,
   name,
   editable=true,
+  startEditable=false,
   textSize='medium',
   textWeight='normal',
   textColor='dark',
   ...props
 } ) => {
-  const [ isEditing, setEditing ] = useState( false )
+  const [ isEditing, setEditing ] = useState( startEditable )
   const childrenRef = useRef()
 
   useEffect( () => {
