@@ -37,7 +37,7 @@ exports.handler = async( event, context ) => {
 
     const { id } = event.queryStringParameters
     const {
-      data: { findSnippetById: data }
+      data: { findSnippetByID: data }
     } = await graphQLClient.query( { query, variables: { id } } )
 
     // If it doesn't exist it is a 404,
@@ -47,6 +47,7 @@ exports.handler = async( event, context ) => {
 
     const wasNotFound = data === null
     const wasForbidden = !isSnippetPublic && !isSnippetFromThisUser
+
     return handleSuccess(
       data,
       wasNotFound ?
