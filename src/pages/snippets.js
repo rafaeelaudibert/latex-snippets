@@ -3,7 +3,7 @@ import { Box, Button, Grid, Heading, Image, Paragraph, ResponsiveContext } from 
 import Link from 'next/link'
 
 import PageWrapper from '../components/Common/PageWrapper'
-import SnippetsCard from '../components/SnippetsPage/SnippetsCard'
+import SnippetCard from '../components/SnippetsPage/SnippetCard'
 
 import { BackendContext } from '../contexts/BackendContext'
 import { ErrorContext } from '../contexts/ErrorContext'
@@ -71,7 +71,7 @@ const Snippets = () => {
       margin='medium'
     >
       {snippets.map( ( snippet ) => (
-        <SnippetsCard
+        <SnippetCard
           key={snippet._id}
           id={snippet._id}
           content={snippet.content}
