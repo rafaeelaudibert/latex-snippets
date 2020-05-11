@@ -49,7 +49,7 @@ const Snippets = () => {
 
   // Can only access the snippets page if it is authenticated
   if ( !user ) {
-    setUnauthorizedError()
+    return setUnauthorizedError( { resource: 'page' } )
   }
 
   if ( !snippets?.length ) {
