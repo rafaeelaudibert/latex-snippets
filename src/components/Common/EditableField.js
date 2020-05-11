@@ -13,9 +13,10 @@ const EditableField = ( {
   setText,
   text,
   name,
+  editable=true,
   ...props
 } ) => {
-  const [ isEditing, setEditing ] = useState( true )
+  const [ isEditing, setEditing ] = useState( false )
   const childrenRef = useRef()
 
   useEffect( () => {
@@ -34,7 +35,7 @@ const EditableField = ( {
     }
   }
 
-  return isEditing ?
+  return editable && isEditing ?
     (
       <div
         onBlur={() => setEditing( false )}
