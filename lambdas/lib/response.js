@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { INTERNAL_ERROR, OK } from '../constants/statusHttp'
 
 export const handleCors = ( event ) => {
@@ -18,22 +19,28 @@ export const handleCors = ( event ) => {
 }
 
 export const handleSuccess = ( data, statusCode ) => {
-  return {
+  const response = {
     body: JSON.stringify( { data, statusCode } ),
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
     statusCode
   }
+
+  console.log( '[SUCCESS]', response )
+  return response
 }
 
 export const handleError = error => {
   const statusCode = error.statusCode || INTERNAL_ERROR
-  return {
+  const errorResponse = {
     body: JSON.stringify( { error: error.message, statusCode } ),
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
     statusCode
   }
+
+  console.log( '[ERROR]', errorResponse )
+  return errorResponse
 }
