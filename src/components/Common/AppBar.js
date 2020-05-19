@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useContext } from 'react'
 import { Box, Button, Heading, ResponsiveContext } from 'grommet'
 import { Login, Logout } from 'grommet-icons'
@@ -23,7 +24,10 @@ export default ( props ) => {
       style={{ zIndex: '1' }}
       {...props}
     >
-      <Heading level='2' margin='none'>LatexSnippets</Heading>
+      <Link href='/'>
+        <Heading level='2' margin='none'>LatexSnippets</Heading>
+      </Link>
+
 
       <Box direction="row" align="center" justify="end">
         { user ?
