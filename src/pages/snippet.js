@@ -1,3 +1,4 @@
+import router from 'next/router'
 import { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 
@@ -18,11 +19,13 @@ const PaddedText = styled( Text )`
   padding-left: 2.5rem;
 `
 
-const Snippet = ( { query: { id: snippetQueryId, content: snippetQueryContent='' } } ) => {
+const Snippet = () => {
   const [ snippet, setSnippet ] = useState( {} )
   const [ loading, setLoading ] = useState( true )
   const [ isSaving, setIsSaving ] = useState( false )
   const [ hasChanged, setHasChanged ] = useState( false )
+
+  const { id: snippetQueryId, content: snippetQueryContent='' } = router.query
 
   const { setNotFoundError, setUnauthorizedError } = useContext( ErrorContext )
   const {
@@ -166,12 +169,8 @@ const Snippet = ( { query: { id: snippetQueryId, content: snippetQueryContent=''
 
 const Page = ( { query } ) => (
   <PageWrapper>
-    <Snippet query={query}/>
+    <Snippet/>
   </PageWrapper>
 )
-
-Page.getInitialProps = ( { query } ) => {
-  return { query }
-}
 
 export default Page
