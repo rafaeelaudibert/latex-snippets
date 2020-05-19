@@ -14,7 +14,13 @@ export default function useLogin() {
     netlifyIdentity.on( 'logout', setUser )
 
     // Get the (maybe) already set user
-    setUser( netlifyIdentity.currentUser() )
+    try {
+      setUser( netlifyIdentity.currentUser() )
+    } catch ( error ) {
+      console.error( 'An error occurred while fetching currentUser', error )
+      setUser( null )
+    }
+
     setFetched( true )
   }, [] )
 
