@@ -49,7 +49,7 @@ exports.handler = async( event, context ) => {
 
     console.log( { isSnippetPublic, isSnippetFromThisUser, wasNotFound, isSnippetAccessible } ) // eslint-disable-line no-console
     return handleSuccess(
-      data,
+      isSnippetAccessible ? data : {},
       isSnippetAccessible ?
         OK :
         wasNotFound ?
