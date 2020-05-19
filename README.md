@@ -5,10 +5,6 @@ Currently available at [https://latex-snippets.netlify.com](https://latex-snippe
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/484002d8-6c74-4fd2-bf19-d5b5a23451bc/deploy-status)](https://app.netlify.com/sites/latex-snippets/deploys)
 
-<!-- markdownlint-disable header-increment -->
-### :warning: Warning: This project is heavily WIP  
-<!-- markdownlint-enable header-increment -->
-
 ## :desktop_computer: Architecture
 
 This project uses [Netlify](https://www.netlify.com/) to deploy the website and the lambda functions.
