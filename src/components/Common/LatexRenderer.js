@@ -43,6 +43,7 @@ export const LatexInput = ( { editable, tex, setTex, showLabel=true } ) => {
           rows={NUM_ROWS}
           value={tex}
           onChange={event => editable && setTex( event.target.value )}
+          data-cy="latex-input"
         />
       </Box>
     </MinWidthBox>

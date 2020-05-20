@@ -36,6 +36,7 @@ const sidebarMobile = ( { onClickClose } ) => (
       justify='end'
       align='center'
       direction='row'
+      data-cy='sidebar'
     >
       <Button
         focusIndicator={false}
@@ -64,6 +65,7 @@ const sidebarDesktop = ( { showSidebar } ) => (
       elevation='small'
       align='center'
       justify='start'
+      data-cy='sidebar'
     >
       <Nav direction="column" background="brand" align='center' justify='center' fill='horizontal' pad={{ top: 'small' }}>
         {generateRoutesList( 'light-1' )}

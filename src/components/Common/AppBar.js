@@ -37,6 +37,7 @@ export default ( props ) => {
             icon={<Logout />}
             label={screenSize !== 'small' ? 'Log out' : null}
             onClick={() => logoutAction()}
+            data-cy='logout-button'
           /> :
           <Button
             focusIndicator={false}
@@ -44,6 +45,7 @@ export default ( props ) => {
             icon={<Login />}
             label={screenSize !== 'small' ? 'Log in/Sign up' : null}
             onClick={() => loginAction()}
+            data-cy='login-button'
           /> }
       </Box>
     </Box>

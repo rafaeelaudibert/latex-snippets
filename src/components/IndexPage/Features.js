@@ -42,12 +42,12 @@ export default () => {
   const BoxFeatures = screenSize === 'small' ? BoxFeaturesSmall : BoxFeaturesDesktop
 
   return (
-    <Box align='center' justify='center' alignText='center' margin={{ top: 'large' }}>
+    <Box align='center' justify='center' alignText='center' margin={{ top: 'large' }} data-cy='features-tab'>
       <Hr/>
       <Heading level='2'>Features</Heading>
       <BoxFeatures background='accent-4' margin={{ bottom: 'xlarge' }}>
-        {features.map( ( { title, text, image } ) => (
-          <Box key={title} fill='vertical' align='center' justify='center' basis='1/3' pad='medium'>
+        {features.map( ( { title, text, image }, index ) => (
+          <Box key={title} fill='vertical' align='center' justify='center' basis='1/3' pad='medium' data-cy={`feature`}>
             <Box height='small'>
               <Image
                 fill

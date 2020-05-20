@@ -6,7 +6,7 @@ import { BackendContext } from '../../contexts/BackendContext'
 import Hr from '../Common/Hr'
 
 const AccessSnippets = () => (
-  <Box fill='horizontal' align='center' justify='center' margin={{ top: 'medium' }}>
+  <Box fill='horizontal' align='center' justify='center' margin={{ top: 'medium' }} data-cy='access-snippets-button'>
     <Hr width={'30%'}/>
     <Link href={'/snippets'}>
       <Button label='Access your snippets' primary focusIndicator={false} color='brand' margin={{ top: 'xsmall' }}/>

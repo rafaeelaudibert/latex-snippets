@@ -30,6 +30,7 @@ const IndexPage = () => {
               alignSelf='center'
               align='center'
               size='large'
+              data-cy='prompt-save-latex'
             />
           </Link>
         </Box>
@@ -42,6 +43,7 @@ const IndexPage = () => {
             alignSelf='center'
             align='center'
             onClick={async() => loginAction()}
+            data-cy='prompt-login-latex'
           />
         </Box>
       )

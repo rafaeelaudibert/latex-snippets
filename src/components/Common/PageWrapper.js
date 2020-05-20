@@ -35,19 +35,16 @@ const PageWrapper = ( { children } ) => {
           onClickClose={() => setShowSidebar( false )}
         />
         {user && (
-          <FloatingButton onClick={() => setShowSidebar( !showSidebar )}>
+          <FloatingButton onClick={() => setShowSidebar( !showSidebar )} data-cy='floating-button'>
             {showSidebar ? <Close /> : <CaretPrevious />}
           </FloatingButton>
         ) }
       </Box>
 
-      <Footer background="brand" pad="medium" justify="between">
+      <Footer background="brand" pad="medium" justify="between" data-cy='footer'>
         <Box direction="row" fill justify="start">
-          <Link href='/faq'>
-            <Anchor margin={{ horizontal: 'small' }} label="FAQ" color="dark-1"/>
-          </Link>
-          <Anchor href='https://github.com/rafaeelaudibert/latex-snippets' margin={{ horizontal: 'small' }} label="Github" color="dark-1"/>
-          <Anchor href='mailto:rafaeelaudibert@gmail.com' margin={{ horizontal: 'small' }} label="Contact" color="dark-1"/>
+          <Anchor href='https://github.com/rafaeelaudibert/LatexSnippets' margin={{ horizontal: 'small' }} label="Github" color="dark-1" data-cy='github-anchor'/>
+          <Anchor href='mailto:rafaeelaudibert+latexsnippets@gmail.com' margin={{ horizontal: 'small' }} label="Contact" color="dark-1" data-cy='contact-anchor'/>
         </Box>
         <Box justify="end" width="medium">
           <Text size="small" textAlign="end">Copyright RafaAudibert {textYearCopyright}</Text>
