@@ -12,7 +12,8 @@
     "build:functions": "netlify-lambda build lambdas/functions",
     "export:app": "next export",
     "deploy:app": "npm run build && npm run export:app",
-    "test": "start-test start:app 3000 cy:run",
+    "test": "server-test 3000 cy:run",
+    "test:interactive": "server-test 3000 cy:open",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
@@ -49,6 +50,8 @@
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "babel-eslint": "^10.1.0",
     "cypress": "^4.5.0",
+    "cypress-dotenv": "^1.2.1",
+    "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "eslint": "^6.8.0",
     "eslint-config-idiomatic": "^4.0.0",
