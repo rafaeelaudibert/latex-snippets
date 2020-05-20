@@ -15,9 +15,7 @@ node_modules/
 .faunarc
 
 # Cypress helper folders
-/cypress/plugins/
 /cypress/screenshots/
-/cypress/support/
 /cypress/videos/
 
 # Cypress code coverage
